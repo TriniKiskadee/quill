@@ -6,7 +6,9 @@ import { notFound, redirect } from "next/navigation";
 import React from "react";
 
 interface PageProps {
-  fileid: string;
+  params: {
+    fileid: string;
+  };
 }
 
 const page = async ({ params }: PageProps) => {

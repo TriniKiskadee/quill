@@ -2,7 +2,7 @@ import { db } from "@/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 
-import { client } from "@/lib/pinecone";
+import { getPineconeClient } from "@/lib/pinecone";
 import { PineconeStore } from "langchain/vectorstores/pinecone";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
@@ -49,7 +49,7 @@ export const ourFileRouter = {
         const pagesAmt = pageLevelDocs.length;
 
         // vectorize and index entire document
-        const pinecone = await client;
+        const pinecone = await getPineconeClient();
         const pineconeIndex = pinecone.Index("quill");
 
         const embeddings = new OpenAIEmbeddings({

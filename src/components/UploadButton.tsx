@@ -165,5 +165,3 @@ const UploadButton = () => {
 };
 
 export default UploadButton;
-
-// TODO: 3:58:00

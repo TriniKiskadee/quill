@@ -147,11 +147,32 @@ export const ChatContextProvider = ({ fileId, children }: Props) => {
                       createdAt: new Date().toISOString(),
                       id: "ai-response",
                       text: accResponse,
+                      isUserMessage: false,
                     },
+                    ...page.messages,
                   ];
+                } else {
+                  updatedMessages = page.messages.map((message) => {
+                    if (message.id === "ai-response") {
+                      return {
+                        ...message,
+                        text: accResponse,
+                      };
+                    }
+                    return message;
+                  });
                 }
+
+                return {
+                  ...page,
+                  messages: updatedMessages,
+                };
               }
+
+              return page;
             });
+
+            return { ...old, pages: updatedPages };
           }
         );
       }
@@ -188,5 +209,3 @@ export const ChatContextProvider = ({ fileId, children }: Props) => {
     </ChatContext.Provider>
   );
 };
-
-//TODO: vid 8:45:00
